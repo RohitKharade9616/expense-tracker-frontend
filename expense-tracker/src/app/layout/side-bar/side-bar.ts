@@ -1,66 +1,26 @@
 import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatIcon, MatIconModule } from "@angular/material/icon";
-export interface SidebarItem {
-  label: string;
-  icon?: string;          // lucide / heroicon name
-  route?: string;
-  children?: SidebarItem[];
-  permission?: string;
-}
- const SIDEBAR_MENU: SidebarItem[] = [
-  {
-    label: 'Dashboard',
-    icon: 'layout-dashboard',
-    route: '/dashboard'
-  },
-  {
-    label: 'Expenses',
-    icon: 'wallet',
-    children: [
-      {
-        label: 'All Expenses',
-        route: '/expenses'
-      },
-      {
-        label: 'Add Expense',
-        route: '/expenses/new'
-      }
-    ]
-  },
-  {
-    label: 'Reports',
-    icon: 'bar-chart-3',
-    route: '/reports'
-  },
-  {
-    label: 'Settings',
-    icon: 'settings',
-    children: [
-      {
-        label: 'Profile',
-        route: '/settings/profile'
-      },
-      {
-        label: 'Categories',
-        route: '/settings/categories'
-      }
-    ]
-  }
-];
+import { CustomMaterialModule } from "../../shared/material modules/custom.material.module";
+
 @Component({
   selector: 'app-side-bar',
-  imports: [RouterModule, MatIconModule],
+  imports: [RouterModule, MatIconModule, CustomMaterialModule],
   templateUrl: './side-bar.html',
   styleUrl: './side-bar.css',
 })
 
 export class SideBar {
 
- menu = SIDEBAR_MENU;
-  openIndex = signal<number | null>(null);
+ 
+menuItems :any= [
+  { labelKey: 'Dashboard', route: 'stc/visa-center',icon:'dashboard' },
+  { labelKey: 'Income', route: 'stc/about-us' ,icon:'calculate'},
+  { labelKey: 'Expenses', route: 'stc/amenities',icon:'shopping_cart' },
+  { labelKey: 'Deductions', route: 'stc/faqs',icon:'calculate' },
+  { labelKey: 'Tax Calculation', route: 'stc/updates-at-ovc',icon:'calculate' },
+  { labelKey: 'ITR Prep', route: 'stc/covid-19',icon:'calculate' },
+  { labelKey: 'Reports', route: 'stc/contact-us',icon:'calculate'},
+];
 
-  toggle(index: number) {
-    this.openIndex.update(v => (v === index ? null : index));
-  }
 }

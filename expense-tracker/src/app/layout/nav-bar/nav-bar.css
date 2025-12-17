@@ -1,0 +1,12 @@
+.navbar-select {
+  width: 180px;
+}
+
+.navbar-select .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+  z-index: 1000;
+}
+.icon
+{
+    font-size: 25px;
+}

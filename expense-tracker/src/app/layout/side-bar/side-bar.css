@@ -1,4 +1,53 @@
-#default-sidebar
+.appointment-summary-card {
+  /* max-width: 600px; */
+  /* margin: auto; */
+  /* border: 1px solid black; */
+
+  .appointment-details {
+    display: flex;
+    flex-direction: column;
+    /* margin-top: 10px; */
+    /* padding: 15px; */
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      /* border-bottom: 1px solid black; */
+      cursor: pointer;
+
+      .title {
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .row:last-child {
+    border-bottom: none;
+  }
+
+  .row:hover,
+  .row.active-route {
+    background:linear-gradient(to left, #7028e4 0%, #e5b2ca 100%);
+    font-size: 18px;
+    /* border-top: 3px solid orange; */
+    border-radius: 16px;
+    z-index: 1;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    .title {
+      color:black !important;
+    }
+  }
+}
+.logo
 {
-    margin-top: 5%;
+      padding: 20px 25px; 
+      font-weight: 600;
+      font-size: 25px;     
+}
+.icon
+{
+  width: 30px;
 }

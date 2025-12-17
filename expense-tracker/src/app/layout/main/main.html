@@ -1,7 +1,25 @@
-<div class="flex">
+<!-- <div class="flex">
   <app-side-bar></app-side-bar>
 
   <main class="flex-1 bg-slate-100 min-h-screen p-6">
     <router-outlet></router-outlet>
   </main>
+</div> -->
+
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 border-r">
+    <app-side-bar></app-side-bar>
+  </aside>
+
+  <main class="flex flex-col flex-1">
+    <header class="h-20  border-b flex items-center px-6">
+      <app-nav-bar class="w-full"></app-nav-bar>
+    </header>
+
+    <section class="flex-1 p-6 overflow-auto">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
 </div>
+
