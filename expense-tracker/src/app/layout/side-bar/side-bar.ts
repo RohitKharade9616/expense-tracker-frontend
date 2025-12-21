@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatIcon, MatIconModule } from "@angular/material/icon";
-import { CustomMaterialModule } from "../../shared/material modules/custom.material.module";
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-side-bar',
-  imports: [RouterModule, MatIconModule, CustomMaterialModule],
+  imports: [RouterModule, MatIconModule,MatCardModule],
   templateUrl: './side-bar.html',
   styleUrl: './side-bar.css',
 })

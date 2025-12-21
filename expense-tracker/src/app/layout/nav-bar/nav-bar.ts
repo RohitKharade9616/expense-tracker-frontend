@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
-import { CustomMaterialModule } from '../../shared/material modules/custom.material.module';
+import {MatSelectModule} from '@angular/material/select';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [CustomMaterialModule],
+  imports: [MatIconModule,MatFormFieldModule,MatSelectModule],
   templateUrl: './nav-bar.html',
   styleUrl: './nav-bar.css',
 })
