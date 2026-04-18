@@ -1,14 +1,19 @@
 import { Routes } from '@angular/router';
 import { Login } from './login/login';
-import { Signup } from './signup/signup';
+import { Register } from './register/register';
 
 export const AUTH_ROUTES: Routes = [
   {
     path: 'login',
-    component: Login ,
+    component: Login,
+  },
+  {
+    path: 'register',
+    component: Register,
   },
   {
     path: 'signup',
-    component: Signup,
+    redirectTo: 'register',
+    pathMatch: 'full',
   },
 ];

@@ -1,0 +1,286 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6 md:p-10">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header Section -->
+    <div class="mb-8">
+      <h1 class="text-4xl font-bold text-gray-900 mb-2">Tax Calculation</h1>
+      <p class="text-lg text-gray-600">
+        Compare tax regimes and calculate your tax liability
+      </p>
+    </div>
+
+    <!-- Loading State -->
+    @if (isLoading) {
+    <div class="flex justify-center items-center h-96">
+      <div class="text-center">
+        <div class="mb-4 inline-block">
+          <div
+            class="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"
+          ></div>
+        </div>
+        <p class="text-gray-600 text-lg">Loading tax calculation...</p>
+      </div>
+    </div>
+    }
+
+    <!-- Error State -->
+    @if (error) {
+    <div
+      class="mb-8 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg"
+    >
+      <p class="font-semibold">Error</p>
+      <p>{{ error }}</p>
+    </div>
+    }
+
+    <!-- Main Content -->
+    @if (!isLoading && !error) {
+    <!-- Two Tax Cards Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <!-- Old Tax Regime Card -->
+      <div
+        class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 p-8 border border-gray-100"
+      >
+        <div class="mb-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-1">Old Tax Regime</h2>
+          <p class="text-sm text-gray-500">With deductions & exemptions</p>
+        </div>
+
+        <div class="space-y-4 mb-6">
+          <!-- Gross Income -->
+          <div class="flex justify-between items-center py-3 border-b border-gray-100">
+            <span class="text-gray-700">Gross Income</span>
+            <span class="font-semibold text-gray-900">
+              {{ formatCurrency(oldTaxRegime.grossIncome) }}
+            </span>
+          </div>
+
+          <!-- Deductions -->
+          <div class="flex justify-between items-center py-3 border-b border-gray-100">
+            <span class="text-gray-700">Deductions</span>
+            <span class="font-semibold text-gray-900">
+              {{ formatCurrency(oldTaxRegime.deductions) }}
+            </span>
+          </div>
+
+          <!-- Taxable Income -->
+          <div class="flex justify-between items-center py-3 border-b border-gray-100">
+            <span class="text-gray-700">Taxable Income</span>
+            <span class="font-semibold text-gray-900">
+              {{ formatCurrency(oldTaxRegime.taxableIncome) }}
+            </span>
+          </div>
+
+          <!-- Total Tax -->
+          <div class="flex justify-between items-center py-3 border-b border-gray-100">
+            <span class="text-gray-700">Total Tax</span>
+            <span class="font-semibold text-gray-900">
+              {{ formatCurrency(oldTaxRegime.totalTax) }}
+            </span>
+          </div>
+
+          <!-- Cess -->
+          <div class="flex justify-between items-center py-3">
+            <span class="text-gray-700">Cess (4%)</span>
+            <span class="font-semibold text-gray-900">
+              {{ formatCurrency(oldTaxRegime.cess) }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Final Tax Liability Button -->
+        <button
+          class="w-full py-4 px-6 rounded-xl font-semibold text-white text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700"
+        >
+          Final Tax Liability
+          <div class="text-2xl font-bold">
+            {{ formatCurrency(oldTaxRegime.finalTaxLiability) }}
+          </div>
+        </button>
+      </div>
+
+      <!-- New Tax Regime Card -->
+      <div
+        class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 p-8 border border-gray-100"
+      >
+        <div class="mb-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-1">New Tax Regime</h2>
+          <p class="text-sm text-gray-500">Lower rates, no deductions</p>
+        </div>
+
+        <div class="space-y-4 mb-6">
+          <!-- Gross Income -->
+          <div class="flex justify-between items-center py-3 border-b border-gray-100">
+            <span class="text-gray-700">Gross Income</span>
+            <span class="font-semibold text-gray-900">
+              {{ formatCurrency(newTaxRegime.grossIncome) }}
+            </span>
+          </div>
+
+          <!-- Deductions -->
+          <div class="flex justify-between items-center py-3 border-b border-gray-100">
+            <span class="text-gray-700">Deductions</span>
+            <span class="font-semibold text-gray-900">₹0</span>
+          </div>
+
+          <!-- Taxable Income -->
+          <div class="flex justify-between items-center py-3 border-b border-gray-100">
+            <span class="text-gray-700">Taxable Income</span>
+            <span class="font-semibold text-gray-900">
+              {{ formatCurrency(newTaxRegime.taxableIncome) }}
+            </span>
+          </div>
+
+          <!-- Total Tax -->
+          <div class="flex justify-between items-center py-3 border-b border-gray-100">
+            <span class="text-gray-700">Total Tax</span>
+            <span class="font-semibold text-gray-900">
+              {{ formatCurrency(newTaxRegime.totalTax) }}
+            </span>
+          </div>
+
+          <!-- Cess -->
+          <div class="flex justify-between items-center py-3">
+            <span class="text-gray-700">Cess (4%)</span>
+            <span class="font-semibold text-gray-900">
+              {{ formatCurrency(newTaxRegime.cess) }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Final Tax Liability Button -->
+        <button
+          class="w-full py-4 px-6 rounded-xl font-semibold text-white text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700"
+        >
+          Final Tax Liability
+          <div class="text-2xl font-bold">
+            {{ formatCurrency(newTaxRegime.finalTaxLiability) }}
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tax Slab Breakdown Section -->
+    <div class="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 p-8 mb-8 border border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">
+        Tax Slab Breakdown - Old Regime
+      </h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead>
+            <tr class="border-b-2 border-gray-200">
+              <th class="text-left py-4 px-4 font-semibold text-gray-700">
+                Income Range
+              </th>
+              <th class="text-center py-4 px-4 font-semibold text-gray-700">
+                Tax Rate
+              </th>
+              <th class="text-right py-4 px-4 font-semibold text-gray-700">
+                Tax Amount
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let slab of taxSlabs; let last = last"
+              class="border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200"
+            >
+              <td class="py-4 px-4 text-gray-900 font-medium">
+                {{ slab.incomeRange }}
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span
+                  class="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium"
+                >
+                  {{ slab.rate }}%
+                </span>
+              </td>
+              <td class="py-4 px-4 text-right text-gray-900 font-medium">
+                {{ formatCurrency(slab.taxAmount) }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Deductions Summary Section -->
+    <div class="mb-8">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">
+          Deductions Summary (Old Regime)
+        </h2>
+        <div
+          class="text-right px-4 py-2 rounded-lg bg-gradient-to-r from-green-100 to-emerald-100"
+        >
+          <p class="text-sm text-gray-600">Total Deduction</p>
+          <p class="text-xl font-bold text-green-700">
+            {{ formatCurrency(totalDeductions) }}
+          </p>
+        </div>
+      </div>
+
+      @if (deductions.length > 0) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div
+          *ngFor="let deduction of deductions"
+          class="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 p-6 border border-gray-100 hover:border-gray-200 cursor-pointer group"
+        >
+          <!-- Section Badge -->
+          <div class="mb-3">
+            <span
+              class="inline-block px-3 py-1 rounded-full text-xs font-bold text-white"
+              [style.background-color]="deduction.color"
+            >
+              {{ deduction.section }}
+            </span>
+          </div>
+
+          <!-- Icon -->
+          <div class="text-3xl mb-3">{{ deduction.icon }}</div>
+
+          <!-- Description -->
+          <p class="text-sm text-gray-600 mb-4 group-hover:text-gray-700">
+            {{ deduction.description }}
+          </p>
+
+          <!-- Amount -->
+          <p class="text-lg font-bold text-gray-900">
+            {{ formatCurrency(deduction.amount) }}
+          </p>
+        </div>
+      </div>
+      } @else {
+      <div
+        class="bg-gray-50 border border-gray-200 rounded-lg p-8 text-center"
+      >
+        <p class="text-gray-600">No deductions available</p>
+      </div>
+      }
+    </div>
+
+    <!-- ITR CTA Section -->
+    <div
+      class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border-2 border-blue-100 p-8 hover:shadow-lg transition-all duration-300"
+    >
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
+        <div class="mb-6 md:mb-0 flex-1">
+          <h3 class="text-2xl font-bold text-gray-900 mb-2">
+            Ready to file your ITR?
+          </h3>
+          <p class="text-gray-600">
+            Review your calculations and proceed to ITR preparation
+          </p>
+        </div>
+
+        <button
+          (click)="onViewTaxSummary()"
+          class="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg whitespace-nowrap"
+        >
+          View Tax Summary
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</div>

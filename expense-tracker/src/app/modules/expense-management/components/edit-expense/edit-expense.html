@@ -1,0 +1,97 @@
+<mat-card class="p-6 relative">
+  <button
+    type="button"
+    class="absolute top-6 right-4 text-gray-500 hover:text-red-600"
+    (click)="onClose()"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <h1 class="text-xl font-semibold mb-4">Edit Expense Entry</h1>
+  <mat-divider></mat-divider>
+
+  <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()" class="mt-6 space-y-5">
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="expenseDate" />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="expenseForm.get('expenseDate')?.hasError('required')">
+        Date is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Description</mat-label>
+      <input matInput maxlength="100" formControlName="description" />
+      <mat-hint align="end">
+        {{ expenseForm.get('description')?.value?.length || 0 }}/100
+      </mat-hint>
+      <mat-error
+        *ngIf="expenseForm.get('description')?.invalid && expenseForm.get('description')?.touched"
+      >
+        Description is required
+      </mat-error>
+    </mat-form-field>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">
+        Category
+      </label>
+      <input type="hidden" formControlName="categoryId" />
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div
+          *ngFor="let category of categories; trackBy: trackById"
+          (click)="selectCategory(category.id)"
+          class="flex flex-col items-center justify-center h-24 rounded-xl border-2 cursor-pointer transition-all duration-200"
+          [ngClass]="{
+            'border-indigo-600 bg-indigo-50 text-indigo-600':
+              categoryId?.value === category.id,
+            'border-gray-200 bg-white text-gray-600':
+              categoryId?.value !== category.id
+          }"
+        >
+          <span class="text-sm font-medium">{{ category?.name }}</span>
+        </div>
+      </div>
+      <p
+        class="text-sm text-red-600 mt-2"
+        *ngIf="categoryId?.invalid && categoryId?.touched"
+      >
+        Category is required
+      </p>
+    </div>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Source</mat-label>
+      <input matInput maxlength="50" formControlName="source" />
+      <mat-error
+        *ngIf="expenseForm.get('source')?.invalid && expenseForm.get('source')?.touched"
+      >
+        Source is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" formControlName="amount" />
+      <mat-error
+        *ngIf="expenseForm.get('amount')?.invalid && expenseForm.get('amount')?.touched"
+      >
+        Amount is required and must be&gt;0
+      </mat-error>
+    </mat-form-field>
+
+    <div class="pt-2">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="expenseForm.invalid"
+        class="w-full"
+      >
+        Update
+      </button>
+    </div>
+  </form>
+</mat-card>

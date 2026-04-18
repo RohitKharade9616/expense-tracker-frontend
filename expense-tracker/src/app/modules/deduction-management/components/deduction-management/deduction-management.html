@@ -1,0 +1,170 @@
+<div class="container mx-auto p-6">
+  <!-- Header -->
+  <div class="flex gap-6 justify-between mb-6">
+    <div>
+      <h1 class="text-2xl font-semibold">Tax Deductions</h1>
+      <p class="mt-2 text-gray-600">Manage your tax-saving investments and deductions</p>
+    </div>
+    <div class="flex gap-4">
+      <button mat-raised-button color="primary" (click)="addDeduction()">+ Add Deduction</button>
+    </div>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="flex gap-6 mt-4 mb-6 flex-wrap">
+    <mat-card class="flex-1 min-w-80 p-4 bg-white shadow-md">
+      <p class="text-sm text-gray-500">Total Deductions Claimed</p>
+      <p class="text-2xl font-semibold mt-2">₹{{totalDeduction}}</p>
+      <p class="text-green-600 text-sm mt-1">Across {{sectionsUsed}} sections</p>
+    </mat-card>
+
+    <mat-card class="flex-1 min-w-80 p-4 bg-white shadow-md">
+      <p class="text-sm text-gray-500">Estimated Tax Savings</p>
+      <p class="text-2xl font-semibold mt-2">₹{{estimatedTaxSavings}}</p>
+      <p class="text-green-600 text-sm mt-1">At {{taxRate}}% tax rate</p>
+    </mat-card>
+
+    <mat-card class="flex-1 min-w-80 p-4 bg-white shadow-md">
+      <p class="text-sm text-gray-500">Available to Claim</p>
+      <p class="text-2xl font-semibold mt-2">₹{{availableToClaim}}</p>
+      <p class="text-gray-500 text-sm mt-1">Optimize your deductions</p>
+    </mat-card>
+  </div>
+
+  <!-- Section Tabs -->
+  <mat-card class="p-6 bg-white shadow-md mb-6">
+    <div class="flex gap-3 flex-wrap">
+      <button *ngFor="let section of taxSections" 
+              mat-button 
+              [color]="selectedSection === section ? 'primary' : ''"
+              [class.selected]="selectedSection === section"
+              (click)="selectSection(section)"
+              class="section-tab">
+        {{ section }}
+      </button>
+    </div>
+  </mat-card>
+
+  <!-- Section Details Card -->
+  <mat-card class="p-6 bg-white shadow-md" *ngIf="currentSection && selectedSection !== 'All Sections'">
+    <!-- Section Header -->
+    <div class="flex justify-between items-start mb-6">
+      <div>
+        <h2 class="text-2xl font-semibold">{{ currentSection.title }}</h2>
+        <div class="flex gap-2 mt-2">
+          <span class="inline-block bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+            {{ currentSection.code }}
+          </span>
+        </div>
+      </div>
+      <button mat-icon-button (click)="addDeduction()">
+        <mat-icon class="text-red-500 text-2xl">favorite_border</mat-icon>
+      </button>
+    </div>
+
+    <!-- Claimed vs Limit -->
+    <div class="flex justify-between items-center mb-6 p-4 bg-gray-50 rounded-lg">
+      <div>
+        <p class="text-gray-600 text-sm">Claimed</p>
+        <p class="text-2xl font-semibold">₹{{currentSection.claimed}}</p>
+        <p class="text-gray-500 text-sm">of ₹{{currentSection.limit}}</p>
+      </div>
+      <div class="text-right">
+        <p class="text-4xl font-semibold text-blue-600">{{currentSection.utilization}}%</p>
+      </div>
+    </div>
+
+    <!-- Utilization Progress Bar -->
+    <div class="mb-6">
+      <p class="text-gray-700 font-medium mb-2">Utilization</p>
+      <mat-progress-bar mode="determinate" [value]="currentSection.utilization" class="mb-2"></mat-progress-bar>
+      <div *ngIf="currentSection.canClaim > 0" class="flex gap-2 text-orange-600">
+        <mat-icon class="text-sm">info</mat-icon>
+        <p class="text-sm">₹{{currentSection.canClaim}} more can be claimed</p>
+      </div>
+      <div *ngIf="currentSection.canClaim === 0 && currentSection.utilization === 100" class="flex gap-2 text-green-600">
+        <mat-icon class="text-sm">check_circle</mat-icon>
+        <p class="text-sm">Maximum limit utilized</p>
+      </div>
+    </div>
+
+    <mat-divider class="my-6"></mat-divider>
+
+    <!-- Items Under Section -->
+    <div *ngIf="currentSection.items && currentSection.items.length > 0" class="mb-6">
+      <h3 class="text-lg font-semibold mb-4">Items</h3>
+      <div class="space-y-3">
+        <mat-card *ngFor="let item of currentSection.items" class="p-4 shadow-sm hover:shadow-md transition">
+          <div class="flex justify-between">
+            <div>
+              <p class="font-medium text-gray-800">{{ item.name }}</p>
+              <p class="text-sm text-gray-500">{{ item.category }}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-lg font-semibold text-gray-800">₹{{item.amount}}</p>
+              <button mat-icon-button matTooltip="Edit" class="text-sm" (click)="onEdit(item)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <!-- Add Item Button -->
+    <button mat-stroked-button color="primary" (click)="addDeduction()" class="w-full m-4">
+      + Add Item
+    </button>
+
+    <mat-divider class="my-6"></mat-divider>
+
+    <!-- Tax Saving Tips -->
+    <div *ngIf="currentSection.tips && currentSection.tips.length > 0" class="p-4 bg-blue-50 rounded-lg">
+      <div class="flex gap-2 mb-3">
+        <mat-icon class="text-blue-600">lightbulb</mat-icon>
+        <p class="font-semibold text-gray-800">Tax Saving Tips</p>
+      </div>
+      <ul class="space-y-2 ml-8">
+        <li *ngFor="let tip of currentSection.tips" class="text-sm text-gray-700 relative">
+          <span class="absolute -left-6">•</span>
+          {{ tip }}
+        </li>
+      </ul>
+    </div>
+  </mat-card>
+
+  <!-- All Sections View -->
+  <div *ngIf="selectedSection === 'All Sections'">
+    <div class="grid grid-cols-1 gap-6">
+      <mat-card *ngFor="let section of taxSections | slice:1" 
+                class="p-6 bg-white shadow-md cursor-pointer hover:shadow-lg transition"
+                (click)="selectSection(section)">
+        <div class="flex justify-between items-start">
+          <div>
+            <h3 class="text-lg font-semibold">{{ deductionSections[section].title }}</h3>
+            <p class="text-gray-600 text-sm mt-2">
+              Claimed: <span class="font-semibold">₹{{deductionSections[section].claimed}}</span> / ₹{{deductionSections[section].limit}}
+            </p>
+          </div>
+          <mat-progress-bar mode="determinate" 
+                           [value]="deductionSections[section].utilization"
+                           class="w-32"></mat-progress-bar>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- General Tax Saving Tips -->
+  <mat-card class="p-6 mt-6 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-md" *ngIf="selectedSection === 'All Sections'">
+    <div class="flex gap-3 mb-4">
+      <mat-icon class="text-blue-600 text-2xl">lightbulb</mat-icon>
+      <p class="font-semibold text-lg text-gray-800">Tax Saving Tips</p>
+    </div>
+    <mat-list>
+      <mat-list-item *ngFor="let tip of allTips" class="py-2">
+        <mat-icon matListItemIcon class="text-blue-600">check_circle</mat-icon>
+        <span matListItemTitle class="text-gray-700">{{ tip }}</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>

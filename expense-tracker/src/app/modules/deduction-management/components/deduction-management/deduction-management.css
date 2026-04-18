@@ -1,0 +1,31 @@
+::ng-deep .section-tab {
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-weight: 500;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+::ng-deep .section-tab:hover {
+  background-color: #e0e0e0;
+}
+
+::ng-deep .section-tab.selected {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+}
+
+.container {
+  max-width: 1200px;
+}
+
+.min-w-80 {
+  min-width: 20rem;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}

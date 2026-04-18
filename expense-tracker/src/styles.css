@@ -3,5 +3,54 @@
 @import "tailwindcss";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
-background: linear-gradient(to left, #b721ff 0%, #21d4fd 100%);}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* background: linear-gradient(to left, #b721ff 0%, #21d4fd 100%);} */
+.kpi-card {
+  @apply 
+         border border-white/10
+         rounded-2xl p-5
+         text-black
+         shadow-lg;
+}
+
+.icon {
+  @apply w-11 h-11
+         flex items-center justify-center
+         rounded-xl
+         text-white;
+}
+
+.label {
+  @apply text-sm text-slate-400 mt-6;
+}
+
+.value {
+  @apply text-sm  mt-1;
+}
+
+.badge {
+  @apply px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.badge.positive {
+  @apply bg-green-500/20 text-green-400;
+}
+
+.badge.negative {
+  @apply bg-red-500/20 text-red-400;
+}
+.button
+{
+  padding: 13px;
+  border: 1px solid;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.button:hover
+{
+  background-color: #b721ff;
+}
+.mat-card 
+{
+  background-color: #ffff !important;
+}

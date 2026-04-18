@@ -1,0 +1,147 @@
+<mat-card class="p-5 bg-gradient-to-l from-purple-500 to-cyan-400 text-white">
+  <h1 class="text-3xl mb-2">Welcome back, Rohit!</h1>
+  <p>Here's your financial overview for FY 2024-2025</p>
+  <div class="flex gap-6 p-2">
+    <button class="button" (click)="addIncome()">+ Add Income</button>
+    <button class="button" (click)="addExpense()">+ Add Expense</button>
+  </div>
+</mat-card>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+  <!-- Card 1 -->
+  <div class="kpi-card">
+    <div class="flex justify-between items-start">
+      <div class="icon bg-green-500">
+        <mat-icon>trending_up</mat-icon>
+      </div>
+      <span class="badge positive">+12.5%</span>
+    </div>
+    <p class="label">Total Income</p>
+    <p class="value">₹18,50,000</p>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="kpi-card">
+    <div class="flex justify-between items-start">
+      <div class="icon bg-pink-500">
+        <mat-icon>trending_down</mat-icon>
+      </div>
+      <span class="badge positive">+8.2%</span>
+    </div>
+    <p class="label">Total Expenses</p>
+    <p class="value">₹6,75,000</p>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="kpi-card">
+    <div class="flex justify-between items-start">
+      <div class="icon bg-blue-500">
+        <mat-icon>account_balance_wallet</mat-icon>
+      </div>
+      <span class="badge negative">-5.3%</span>
+    </div>
+    <p class="label">Taxable Income</p>
+    <p class="value">₹11,75,000</p>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="kpi-card">
+    <div class="flex justify-between items-start">
+      <div class="icon bg-purple-500">
+        <mat-icon>currency_exchange</mat-icon>
+      </div>
+      <span class="badge positive">+15.8%</span>
+    </div>
+    <p class="label">Tax Savings</p>
+    <p class="value">₹1,50,000</p>
+  </div>
+</div>
+
+<div class="flex w-full gap-6">
+  <mat-card class="mat-card w-1/2">
+    <div class="p-4 rounded-xl border border-white/10 bg-white">
+      <h3 class="text-black text-2xl mb-3">Income Trend</h3>
+
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [xaxis]="chartOptions.xaxis"
+        [stroke]="chartOptions.stroke"
+        [dataLabels]="chartOptions.dataLabels"
+        [tooltip]="chartOptions.tooltip"
+        [grid]="chartOptions.grid"
+      >
+      </apx-chart>
+    </div>
+  </mat-card>
+
+  <mat-card class="mat-card w-1/2">
+    <div class="p-4 rounded-xl border border-white/10 bg-white">
+      <h3 class="text-black text-2xl mb-3">Monthly Expenses</h3>
+      <apx-chart
+        [series]="BarChartOptions.series"
+        [chart]="BarChartOptions.chart"
+        [dataLabels]="BarChartOptions.dataLabels"
+        [plotOptions]="BarChartOptions.plotOptions"
+        [yaxis]="BarChartOptions.yaxis"
+        [xaxis]="BarChartOptions.xaxis"
+        [fill]="BarChartOptions.fill"
+        [title]="BarChartOptions.title"
+      ></apx-chart>
+    </div>
+  </mat-card>
+</div>
+
+<div class="flex w-full gap-6 mt-4">
+  <mat-card class="mat-card w-1/2">
+    <div class="p-4 rounded-xl border border-white/10 bg-white">
+      <h3 class="text-black text-2xl mb-3">Expense By Category</h3>
+      <apx-chart
+        [series]="DonutChartOptions.series"
+        [chart]="DonutChartOptions.chart"
+        [dataLabels]="DonutChartOptions.dataLabels"
+        [plotOptions]="DonutChartOptions.plotOptions"
+        [yaxis]="DonutChartOptions.yaxis"
+        [xaxis]="DonutChartOptions.xaxis"
+        [fill]="DonutChartOptions.fill"
+        [title]="DonutChartOptions.title"
+        [labels]="DonutChartOptions.labels"
+        [legend]="DonutChartOptions.legend"
+        [colors]="DonutChartOptions.colors"
+      ></apx-chart>
+    </div>
+  </mat-card>
+
+  <mat-card class="mat-card w-1/2">
+    <div class="p-4 rounded-xl border border-white/10 bg-white">
+      <h3 class="text-black text-2xl mb-3">Tax Summary</h3>
+      <div class="bg-gray-300 flex  m-2 justify-between items-center shadow-2xl p-4">
+        <p class="font-medium">Gross Total Income</p>
+        <p class="font-semibold">₹ 1,25,000</p>
+      </div>
+       <div class="bg-gray-300 m-2 flex justify-between items-center shadow-2xl p-4">
+        <p class="font-medium">Total Deductions</p>
+        <p class="font-semibold">₹ 1,25,000</p>
+      </div>
+       <div class="bg-gray-300 m-2 flex justify-between items-center shadow-2xl p-4">
+        <p class="font-medium">Taxable Income</p>
+        <p class="font-semibold">₹ 1,25,000</p>
+      </div>
+      <div class="bg-gray-300 m-2 flex justify-between items-center shadow-2xl p-4">
+        <p class="font-medium">Estimated Tax (Old Regime)</p>
+        <p class="font-semibold">₹ 1,25,000</p>
+      </div>
+            <div class="m-2 flex justify-between items-center p-4">
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="w-full"
+      >
+        Submit
+      </button>
+      </div>
+    </div>
+  </mat-card>
+</div>

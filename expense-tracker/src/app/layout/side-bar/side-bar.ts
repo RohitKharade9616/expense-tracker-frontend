@@ -14,13 +14,13 @@ export class SideBar {
 
  
 menuItems :any= [
-  { labelKey: 'Dashboard', route: 'stc/visa-center',icon:'dashboard' },
-  { labelKey: 'Income', route: 'stc/about-us' ,icon:'calculate'},
-  { labelKey: 'Expenses', route: 'stc/amenities',icon:'shopping_cart' },
-  { labelKey: 'Deductions', route: 'stc/faqs',icon:'calculate' },
-  { labelKey: 'Tax Calculation', route: 'stc/updates-at-ovc',icon:'calculate' },
+  { labelKey: 'Dashboard', route: 'dashboard',icon:'dashboard' },
+  { labelKey: 'Income', route: 'income-management' ,icon:'calculate'},
+  { labelKey: 'Expenses', route: 'expense-management',icon:'shopping_cart' },
+  { labelKey: 'Deductions', route: 'tax-deduction',icon:'calculate' },
+  { labelKey: 'Tax Calculation', route: 'tax-calculation',icon:'calculate' },
   { labelKey: 'ITR Prep', route: 'stc/covid-19',icon:'calculate' },
-  { labelKey: 'Reports', route: 'stc/contact-us',icon:'calculate'},
+  { labelKey: 'Reports', route: 'stc/contact-us',icon:'reports'},
 ];
 
 }

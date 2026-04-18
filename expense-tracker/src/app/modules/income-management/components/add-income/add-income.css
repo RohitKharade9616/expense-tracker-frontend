@@ -1,0 +1,27 @@
+.category-wrapper {
+  display: flex;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+.category-card {
+  width: 140px;
+  height: 90px;
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-card.active {
+  border-color: #3f51b5;
+  background-color: #e8eaf6;
+}
+.icon
+{
+    color:black;
+}

@@ -1,0 +1,172 @@
+/* Tax Calculation Component Styles */
+
+:host {
+  display: block;
+}
+
+/* Optional custom animations & transitions */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Card animations */
+.card-animate {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Enhanced button hover effects */
+button {
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Table row hover effects */
+table tbody tr:hover {
+  background-color: rgba(79, 70, 229, 0.05);
+}
+
+/* Badge styling */
+.badge {
+  display: inline-block;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive grid gap adjustment */
+@media (max-width: 768px) {
+  .grid {
+    gap: 1rem;
+  }
+}
+
+/* Smooth scrolling for the page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Currency display consistency */
+.currency {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* Section badges with better contrast */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  letter-spacing: 0.75px;
+}
+
+/* Deduction card hover lift effect */
+.deduction-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.deduction-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Tax regime cards with subtle gradient on hover */
+.tax-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.tax-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.tax-card:hover::before {
+  opacity: 1;
+}
+
+/* Pill badge pill styling */
+.pill-badge {
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-block;
+}
+
+/* CTA section border animation */
+.cta-section {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.cta-section:hover {
+  border-color: rgba(79, 70, 229, 0.5);
+  box-shadow: 0 0 20px rgba(79, 70, 229, 0.1);
+}
+
+/* Responsive font sizes */
+@media (max-width: 640px) {
+  h1 {
+    font-size: 1.875rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+  /* Styles for dark mode can be added here if the app supports it */
+}

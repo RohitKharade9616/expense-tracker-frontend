@@ -1,0 +1,48 @@
+<div class="container mx-auto p-6">
+  <div class="flex gap-6 justify-between">
+    <div>
+    <h1 class="text-2xl font-semibold">Income Management</h1>
+    <p class="mt-2 text-gray-600">Track and manage all your income sources</p>
+    </div>
+    <button class="button" (click)="addIncome()">+ Add Income</button>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="flex gap-6 mt-4">
+    <mat-card class="w-1/3 p-4 bg-white shadow-md">
+      <p class="text-sm text-gray-500">Total Income (YTD)</p>
+      <p class="text-xl font-semibold">₹&nbsp;{{totalIncome}}</p>
+      <p class="text-green-600 text-sm">+12.5% from last year</p>
+    </mat-card>
+
+    <mat-card class="w-1/3 p-4 shadow-md">
+      <p class="text-sm text-gray-500">This Month</p>
+      <p class="text-xl font-semibold">₹&nbsp;{{currentMonthIncome}}</p>
+      <p class="text-green-600 text-sm">+8.2% from last month</p>
+    </mat-card>
+
+    <mat-card class="w-1/3 p-4 shadow-md">
+      <p class="text-sm text-gray-500">Average Monthly</p>
+      <p class="text-xl font-semibold">₹&nbsp;{{averageIncome}}</p>
+      <p class="text-gray-500 text-sm">Based on 12 months</p>
+    </mat-card>
+  </div>
+
+  <!-- Search -->
+  <mat-card class="mt-6 p-4 shadow-2xl">
+    <div class="flex gap-4">
+      <mat-form-field appearance="fill" class="w-1/2">
+        <mat-icon matPrefix>search</mat-icon>
+
+        <input matInput placeholder="Search income entries" [formControl]="searchValue" (input)="searchbyCategory()"/>
+      </mat-form-field>
+
+      <mat-card *ngFor="let item of categories; trackBy: trackById" class="shadow-2xl w-30 h-14 gap-2 items-center cursor-pointer" (click)="filterByCategory(item.id)">
+        <p class="items-center p-5">{{ item.name }}</p>
+      </mat-card>
+    </div>
+  </mat-card>
+  <mat-card *ngIf="incomeList.length" class="mt-6 p-4 shadow-2xl">
+    <app-income-list [incomeList]="incomeList"></app-income-list>
+  </mat-card>
+</div>

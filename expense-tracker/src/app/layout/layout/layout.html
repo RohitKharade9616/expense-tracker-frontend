@@ -1,6 +1,15 @@
-<!-- <div class="">
-  <app-nav-bar></app-nav-bar>
-</div> -->
-<!-- <div class="main-section"> -->
-  <app-main></app-main>
-<!-- </div> -->
+<div class="flex min-h-screen">
+  <aside class="w-64 shadow-2xl">
+    <app-side-bar></app-side-bar>
+  </aside>
+
+  <main class="flex flex-col flex-1">
+    <header class="h-20 flex items-center px-6 shadow-2xl">
+      <app-nav-bar class="w-full"></app-nav-bar>
+    </header>
+
+    <section class="flex-1 p-6 overflow-auto">
+      <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>
